@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Exhibition</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --card-bg: #f5f5f5;
+            --nav-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --accent-color: #4CAF50;
+            --input-bg: #ffffff;
+            --error-color: #ff4444;
+            --success-color: #00C851;
+        }
+
+        .dark-theme {
+            --bg-color: #1a1a1a;
+            --text-color: #ffffff;
+            --card-bg: #2d2d2d;
+            --nav-bg: #2d2d2d;
+            --shadow: rgba(255, 255, 255, 0.1);
+            --input-bg: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Navbar Styles with Animation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background-color: var(--nav-bg);
+            box-shadow: 0 2px 10px var(--shadow);
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .nav-links {
+            color: rgb(255, 235, 81);
+            display: flex;
+            gap: 2rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .nav-links a {
+            color: antiquewhite;
+            text-decoration: none;
+            color: var(--text-color);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hero {
+        margin-top: 60px;
+        height: 90vh;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .video-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .video-background video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+        z-index: 2;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 3;
+        text-align: center;
+        color: white;
+        padding: 2rem;
+        max-width: 800px;
+        animation: fadeIn 1.5s ease-out;
+    }
+
+    .hero-title {
+        font-size: 4rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-subtitle {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: rgba(255, 255, 255, 0.9);
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-description {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .cta-button {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background-color: var(--accent-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .cta-button:hover {
+        background-color: transparent;
+        border-color: var(--accent-color);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+        }
+
+        .hero-description {
+            font-size: 1rem;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+
+        .hero-content {
+            padding: 1rem;
+        }
+    }
+
+        /* Hero Section */
+        .hero {
+        margin-top: 60px;
+        height: 80vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .carousel {
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .carousel-track {
+        display: flex;
+        height: 100%;
+        animation: carousel 15s linear infinite;
+    }
+
+    .carousel-track:hover {
+        animation-play-state: paused;
+    }
+
+    .carousel-item {
+        min-width: 100%;
+        height: 100%;
+        flex-shrink: 0;
+    }
+
+    .carousel-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    @keyframes carousel {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-300%); /* Move by width of original slides */
+        }
+    }
+
+        /* Coordinators Section */
+        .coordinators {
+            padding: 4rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+        }
+
+        .coordinator-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .coordinator-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px var(--shadow);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coordinator-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 8px 25px var(--shadow);
+        }
+
+        .coordinator-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.1),
+                    transparent);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        .coordinator-card:hover::before {
+            animation: rotate 1s linear infinite;
+        }
+
+        .coordinator-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 4rem 5%;
+        }
+
+        .project-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-caption {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        /* Enhanced Project Cards */
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px var(--shadow);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        /* Enhanced Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Redesigned Contact Form */
+        .contact-section {
+            
+    padding: 5rem 0;
+    background-color: var(--bg-color);
+}
+
+.contact-container {
+    
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.contact-content {
+    background: var(--card-bg);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px var(--shadow);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.contact-content:hover {
+    transform: translateY(-5px);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 3rem;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-label {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.form-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--text-color);
+    opacity: 0.2;
+    transition: all 0.3s ease;
+}
+
+/* Input focus and filled states */
+.form-input:focus ~ .form-label,
+.form-input:not(:placeholder-shown) ~ .form-label {
+    top: -0.5rem;
+    left: 0;
+    font-size: 0.85rem;
+    color: var(--accent-color);
+}
+
+.form-input:focus ~ .form-line {
+    height: 2px;
+    opacity: 1;
+    background: var(--accent-color);
+}
+
+/* Submit button styling */
+.submit-btn {
+    align-self: flex-start;
+    padding: 1rem 2rem;
+    background: var(--accent-color);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+.btn-icon {
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+}
+
+.submit-btn:hover .btn-icon {
+    transform: translateX(3px);
+}
+
+/* Success animation for button */
+.submit-btn.success {
+    background: #00C851;
+    width: 50px;
+    padding: 1rem;
+    justify-content: center;
+}
+
+.submit-btn.success .btn-text {
+    display: none;
+}
+
+.submit-btn.success .btn-icon {
+    transform: scale(1.2);
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .contact-content {
+        padding: 2rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .submit-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Loading animation */
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.submit-btn.loading .btn-icon {
+    animation: rotate 1s linear infinite;
+}
+
+/* Form validation visual feedback */
+.form-input:invalid:not(:placeholder-shown) ~ .form-line {
+    background: #ff4444;
+}
+
+/* Success shake animation */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+        /* New styles for search and filter */
+        .search-filter-container {
+            max-width: 1200px;
+            margin: 0 auto 2rem auto;
+            padding: 1rem;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px var(--shadow);
+            animation: slideDown 0.5s ease-out;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .filter-tag {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tag.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .filter-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        /* Hide projects that don't match search/filter */
+        .project-card.hidden {
+            display: none;
+        }
+
+        .scroll-banner {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 0.5rem 0;
+            background-color: #000000;
+            /* Added black background */
+            position: relative;
+            z-index: 1;
+        }
+
+
+        .scroll-container {
+            display: inline-flex;
+            animation: infiniteScroll 10s linear infinite;
+        }
+
+        .scroll-content {
+            display: flex;
+            gap: 100px;
+            padding: 0 50px;
+        }
+
+        .logo-item {
+            display: flex;
+            align-items: center;
+            min-width: 150px;
+        }
+
+        .logo-item img {
+            height: 50px;
+            width: 200px;
+            object-fit: contain;
+            /* Ensure logos are visible on black background */
+            filter: brightness(1.2) contrast(1.1);
+        }
+
+        /* Dark mode adjustments - simplified since we have a black background */
+        /* .dark-theme .scroll-banner {
+            background-color: #000000;
+        }
+
+        .dark-theme .logo-item img {
+            filter: brightness(1.2) contrast(1.1);
+        } */
+
+        /* Add subtle gradient overlay for depth */
+        .scroll-banner::before,
+        .scroll-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            z-index: 2;
+        }
+
+        /* .scroll-banner::before {
+            left: 0;
+            background: linear-gradient(to right, #000000, transparent);
+        }
+
+        .scroll-banner::after {
+            right: 0;
+            background: linear-gradient(to left, #000000, transparent);
+        } */
+
+        /* Ensure smooth animation */
+        .scroll-container:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes infiniteScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(calc(-250px * 3));
+            }
+        }
+        
+        /* Add these to your existing styles */
+.scroll-container-reverse {
+    display: inline-flex;
+    animation: infiniteScrollReverse 10s linear infinite;
+}
+
+/* Add the reverse animation keyframes */
+@keyframes infiniteScrollReverse {
+    from {
+        transform: translateX(calc(-250px * 3));
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Modify the existing scroll banner styles to add spacing between banners */
+.scroll-banner {
+    margin: 10px 0; /* Adds small gap between banners */
+}
+
+/* Add pause on hover for reverse scroll */
+.scroll-container-reverse:hover {
+    animation-play-state: paused;
+}
+
+        /* Black banner specific styles */
+.black-banner {
+    background-color: #c2c2c2;
+}
+
+.black-banner .logo-item img {
+    filter: brightness(1.2) contrast(1.1); /* Makes logos more visible on black */
+}
+
+/* White banner specific styles */
+.white-banner {
+    background-color: #000000;
+}
+
+.white-banner .logo-item img {
+    filter: brightness(0.9) contrast(1.1); /* Adjusts logos for white background */
+}
+
+/* Gradient overlays for both banners */
+.black-banner::before,
+.black-banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+}
+
+.white-banner::before,
+.white-banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+}
+
+/* .black-banner::before {
+    left: 0;
+    background: linear-gradient(to right, #ffffff, transparent);
+}
+
+.black-banner::after {
+    right: 0;
+    background: linear-gradient(to left, #ffffff, transparent);
+} */
+
+/* .white-banner::before {
+    left: 0;
+    background: linear-gradient(to right, #ffffff, transparent);
+} */
+
+/* .white-banner::after {
+    right: 0;
+    background: linear-gradient(to left, #ffffff, transparent);
+} */
+
+.scroll-container {
+    display: inline-flex;
+    animation: infiniteScroll 10s linear infinite;
+}
+
+.scroll-container-reverse {
+    display: inline-flex;
+    animation: infiniteScrollReverse 10s linear infinite;
+}
+
+/* Animation keyframes */
+@keyframes infiniteScroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-250px * 3));
+    }
+}
+
+@keyframes infiniteScrollReverse {
+    from {
+        transform: translateX(calc(-250px * 3));
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Hover effects */
+.scroll-container:hover,
+.scroll-container-reverse:hover {
+    animation-play-state: paused;
+}
+
+        /* footer section */
+        .footer {
+        background-color: var(--nav-bg);
+        padding: 1.5rem 0;
+        box-shadow: 0 -2px 10px var(--shadow);
+    }
+
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .footer-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .footer-logo {
+        height: 40px;
+        width: auto;
+    }
+
+    .footer-text {
+        font-weight: bold;
+        color: var(--text-color);
+        font-size: 1.1rem;
+    }
+
+    .footer-right {
+        color: var(--text-color);
+    }
+
+    .copyright {
+        font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 768px) {
+        .footer-container {
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .footer-left {
+            flex-direction: column;
+        }
+
+        .footer-text {
+            font-size: 1rem;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <img src="light logo p.png" height="40px" alt="">
+        </div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="video-background">
+            <!-- Note: Using a placeholder video. Replace src with your actual video -->
+             
+            <video autoplay muted loop playsinline>
+                <source src="video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <!-- Dark overlay to make text more readable -->
+            <div class="overlay"></div>
+        </div>
+        
+        <!-- Text content -->
+        <div class="hero-content">
+            <h1 class="hero-title">Project Exhibition</h1>
+            <p class="hero-subtitle">Showcasing Innovation & Technology</p>
+            <div class="hero-description">
+                <p>Welcome to our annual project exhibition where students and faculty members showcase their innovative projects and cutting-edge research. Join us in exploring the future of technology.</p>
+            </div>
+            <!-- <a href="#projects" class="cta-button">Explore Projects</a> -->
+        </div>
+    </section>
+
+    <!-- <section class="hero" id="home">
+        <div class="carousel">
+           
+            <div class="carousel-track">
+                <div class="carousel-item">
+                    <img src="Frame 7.png" alt="Project 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="Frame 10.png" alt="Project 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="Frame 11.png" alt="Project 3">
+                </div>
+               
+                <div class="carousel-item">
+                    <img src="Frame 7.png" alt="Project 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="Frame 10.png" alt="Project 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="Frame 11.png" alt="Project 3">
+                </div>
+            </div>
+        </div>
+    </section> -->
+    
+    <section>
+        <!-- First banner with black background -->
+        <div class="scroll-banner black-banner">
+            <div class="scroll-container">
+                <!-- First set -->
+                <div class="scroll-content">
+                    <div class="logo-item">
+                        <img src="t1.png" alt="Logo 1">
+                    </div>
+                    <div class="logo-item">
+                        <img src="t2.png" alt="Logo 2">
+                    </div>
+                    <div class="logo-item">
+                        <img src="t3.png" alt="Logo 3">
+                    </div>
+                </div>
+                <!-- Duplicate sets for seamless loop -->
+                <div class="scroll-content">
+                    <div class="logo-item">
+                        <img src="t1.png" alt="Logo 1">
+                    </div>
+                    <div class="logo-item">
+                        <img src="t2.png" alt="Logo 2">
+                    </div>
+                    <div class="logo-item">
+                        <img src="t3.png" alt="Logo 3">
+                    </div>
+                </div>
+                <div class="scroll-content">
+                    <div class="logo-item">
+                        <img src="t1.png" alt="Logo 1">
+                    </div>
+                    <div class="logo-item">
+                        <img src="t2.png" alt="Logo 2">
+                    </div>
+                    <div class="logo-item">
+                        <img src="t3.png" alt="Logo 3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Second banner with white background -->
+        <div class="scroll-banner white-banner">
+            <div class="scroll-container-reverse">
+                <!-- First set -->
+                <div class="scroll-content">
+                    <div class="logo-item">
+                        <img src="L1.png" alt="Logo 1">
+                    </div>
+                    <div class="logo-item">
+                        <img src="L2.png" alt="Logo 2">
+                    </div>
+                    <div class="logo-item">
+                        <img src="L3.png" alt="Logo 3">
+                    </div>
+                </div>
+                <!-- Duplicate sets for seamless loop -->
+                <div class="scroll-content">
+                    <div class="logo-item">
+                        <img src="L1.png" alt="Logo 1">
+                    </div>
+                    <div class="logo-item">
+                        <img src="L2.png" alt="Logo 2">
+                    </div>
+                    <div class="logo-item">
+                        <img src="L3.png" alt="Logo 3">
+                    </div>
+                </div>
+                <div class="scroll-content">
+                    <div class="logo-item">
+                        <img src="L1.png" alt="Logo 1">
+                    </div>
+                    <div class="logo-item">
+                        <img src="L2.png" alt="Logo 2">
+                    </div>
+                    <div class="logo-item">
+                        <img src="L3.png" alt="Logo 3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="coordinators">
+        <h2 class="section-title fade-in">Our Coordinators</h2>
+        <div class="coordinator-cards">
+            <div class="coordinator-card fade-in">
+                <img src="s1.jpg" alt="Coordinator 1" class="coordinator-img">
+                <h3>Dr. John Doe</h3>
+                <p>Head of Department</p>
+                <p>Computer Science</p>
+            </div>
+            <div class="coordinator-card fade-in">
+                <img src="s1.jpg" alt="Coordinator 2" class="coordinator-img">
+                <h3>Prof. Jane Smith</h3>
+                <p>Project Coordinator</p>
+                <p>Electronics</p>
+            </div>
+            <div class="coordinator-card fade-in">
+                <img src="s1.jpg" alt="Coordinator 3" class="coordinator-img">
+                <h3>Dr. Mike Johnson</h3>
+                <p>Technical Lead</p>
+                <p>Mechanical</p>
+            </div>
+            <div class="coordinator-card fade-in">
+                <img src="s1.jpg" alt="Coordinator 4" class="coordinator-img">
+                <h3>Prof. Sarah Wilson</h3>
+                <p>Research Head</p>
+                <p>Electrical</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects" id="projects">
+        <h2 class="section-title fade-in">Our Projects</h2>
+
+        <div class="search-filter-container fade-in">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search projects..." id="projectSearch">
+            </div>
+            <div class="filter-tags">
+                <button class="filter-tag active" data-category="all">All</button>
+                <button class="filter-tag" data-category="iot">IoT</button>
+                <button class="filter-tag" data-category="ai">AI</button>
+                <button class="filter-tag" data-category="renewable">Renewable</button>
+            </div>
+        </div>
+        <div class="project-cards">
+
+            <div class="project-card fade-in" data-category="iot">
+                <img src="vv.png" alt="Project 1" class="project-img">
+                <div class="project-caption">
+                    <h3>Smart Home Automation</h3>
+                    <p>IoT-based home automation system with voice control</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 12.png" alt="Project 2" class="project-img">
+                <div class="project-caption">
+                    <h3>AI Traffic Management</h3>
+                    <p>Real-time traffic monitoring and control system</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 13.png" alt="Project 3" class="project-img">
+                <div class="project-caption">
+                    <h3>Renewable Energy Monitor</h3>
+                    <p>Solar and wind energy optimization platform</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 12.png" alt="Project 2" class="project-img">
+                <div class="project-caption">
+                    <h3>AI Traffic Management</h3>
+                    <p>Real-time traffic monitoring and control system</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 13.png" alt="Project 3" class="project-img">
+                <div class="project-caption">
+                    <h3>Renewable Energy Monitor</h3>
+                    <p>Solar and wind energy optimization platform</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="vv.png" alt="Project 1" class="project-img">
+                <div class="project-caption">
+                    <h3>Smart Home Automation</h3>
+                    <p>IoT-based home automation system with voice control</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 12.png" alt="Project 2" class="project-img">
+                <div class="project-caption">
+                    <h3>AI Traffic Management</h3>
+                    <p>Real-time traffic monitoring and control system</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 13.png" alt="Project 3" class="project-img">
+                <div class="project-caption">
+                    <h3>Renewable Energy Monitor</h3>
+                    <p>Solar and wind energy optimization platform</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="vv.png" alt="Project 1" class="project-img">
+                <div class="project-caption">
+                    <h3>Smart Home Automation</h3>
+                    <p>IoT-based home automation system with voice control</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 12.png" alt="Project 2" class="project-img">
+                <div class="project-caption">
+                    <h3>AI Traffic Management</h3>
+                    <p>Real-time traffic monitoring and control system</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 13.png" alt="Project 3" class="project-img">
+                <div class="project-caption">
+                    <h3>Renewable Energy Monitor</h3>
+                    <p>Solar and wind energy optimization platform</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 12.png" alt="Project 2" class="project-img">
+                <div class="project-caption">
+                    <h3>AI Traffic Management</h3>
+                    <p>Real-time traffic monitoring and control system</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 13.png" alt="Project 3" class="project-img">
+                <div class="project-caption">
+                    <h3>Renewable Energy Monitor</h3>
+                    <p>Solar and wind energy optimization platform</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="vv.png" alt="Project 1" class="project-img">
+                <div class="project-caption">
+                    <h3>Smart Home Automation</h3>
+                    <p>IoT-based home automation system with voice control</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 12.png" alt="Project 2" class="project-img">
+                <div class="project-caption">
+                    <h3>AI Traffic Management</h3>
+                    <p>Real-time traffic monitoring and control system</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 13.png" alt="Project 3" class="project-img">
+                <div class="project-caption">
+                    <h3>Renewable Energy Monitor</h3>
+                    <p>Solar and wind energy optimization platform</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="vv.png" alt="Project 1" class="project-img">
+                <div class="project-caption">
+                    <h3>Smart Home Automation</h3>
+                    <p>IoT-based home automation system with voice control</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 12.png" alt="Project 2" class="project-img">
+                <div class="project-caption">
+                    <h3>AI Traffic Management</h3>
+                    <p>Real-time traffic monitoring and control system</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 13.png" alt="Project 3" class="project-img">
+                <div class="project-caption">
+                    <h3>Renewable Energy Monitor</h3>
+                    <p>Solar and wind energy optimization platform</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 12.png" alt="Project 2" class="project-img">
+                <div class="project-caption">
+                    <h3>AI Traffic Management</h3>
+                    <p>Real-time traffic monitoring and control system</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 13.png" alt="Project 3" class="project-img">
+                <div class="project-caption">
+                    <h3>Renewable Energy Monitor</h3>
+                    <p>Solar and wind energy optimization platform</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="vv.png" alt="Project 1" class="project-img">
+                <div class="project-caption">
+                    <h3>Smart Home Automation</h3>
+                    <p>IoT-based home automation system with voice control</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 12.png" alt="Project 2" class="project-img">
+                <div class="project-caption">
+                    <h3>AI Traffic Management</h3>
+                    <p>Real-time traffic monitoring and control system</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="Frame 13.png" alt="Project 3" class="project-img">
+                <div class="project-caption">
+                    <h3>Renewable Energy Monitor</h3>
+                    <p>Solar and wind energy optimization platform</p>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-content">
+                <h2 class="section-title">Get in Touch</h2>
+                <p class="section-subtitle">Fill out the form and we'll get back to you soon!</p>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" required class="form-input" placeholder=" ">
+                        <label for="name" class="form-label">Name</label>
+                        <div class="form-line"></div>
+                    </div>
+    
+                    <div class="form-group">
+                        <input type="text" id="company" required class="form-input" placeholder=" ">
+                        <label for="company" class="form-label">Company</label>
+                        <div class="form-line"></div>
+                    </div>
+    
+                    <div class="form-group">
+                        <input type="email" id="email" required class="form-input" placeholder=" ">
+                        <label for="email" class="form-label">Email</label>
+                        <div class="form-line"></div>
+                    </div>
+    
+                    <div class="form-group">
+                        <textarea id="message" required class="form-input form-textarea" placeholder=" "></textarea>
+                        <label for="message" class="form-label">Message</label>
+                        <div class="form-line"></div>
+                    </div>
+    
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">Send Message</span>
+                        <span class="btn-icon">
+                            <i class="fas fa-paper-plane"></i>
+                        </span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <img src="light logo p.png" alt="Logo" class="footer-logo">
+                <span class="footer-text">SOA PROXIMA PROJECTS</span>
+            </div>
+            <div class="footer-right">
+                <p class="copyright">Copyright © 2025. All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        });
+
+        // Carousel Animation
+        document.addEventListener('DOMContentLoaded', () => {
+        const track = document.querySelector('.carousel-track');
+        
+        // Function to handle the infinite scroll effect
+        function resetAnimation() {
+            track.style.animation = 'none';
+            track.offsetHeight; // Trigger reflow
+            track.style.animation = 'carousel 10s linear infinite';
+        }
+
+        // Reset animation when it completes
+        track.addEventListener('animationend', resetAnimation);
+    });
+
+        // Fade-in Animation on Scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        fadeElements.forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            observer.observe(element);
+        });
+
+        // Contact Form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const button = this.querySelector('.submit-btn');
+    const icon = button.querySelector('.btn-icon');
+    
+    // Add loading state
+    button.classList.add('loading');
+    
+    // Simulate form submission
+    setTimeout(() => {
+        button.classList.remove('loading');
+        button.classList.add('success');
+        icon.innerHTML = '<i class="fas fa-check"></i>';
+        
+        // Reset form and button after delay
+        setTimeout(() => {
+            this.reset();
+            button.classList.remove('success');
+            icon.innerHTML = '<i class="fas fa-paper-plane"></i>';
+            
+            // Shake animation for success feedback
+            button.style.animation = 'shake 0.5s ease';
+            setTimeout(() => {
+                button.style.animation = '';
+            }, 500);
+        }, 2000);
+    }, 1500);
+});
+
+// Add floating label animation for each input
+document.querySelectorAll('.form-input').forEach(input => {
+    input.addEventListener('focus', () => {
+        input.parentElement.classList.add('focused');
+    });
+    
+    input.addEventListener('blur', () => {
+        if (!input.value) {
+            input.parentElement.classList.remove('focused');
+        }
+    });
+});
+
+        // Enhanced Scroll Animations
+        const scrollElements = document.querySelectorAll('.scroll-animation');
+
+        // New JavaScript for search and filter functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('projectSearch');
+            const filterTags = document.querySelectorAll('.filter-tag');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            // Search functionality
+            searchInput.addEventListener('input', filterProjects);
+
+            // Filter functionality
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', (e) => {
+                    // Toggle active state
+                    filterTags.forEach(t => t.classList.remove('active'));
+                    e.target.classList.add('active');
+                    filterProjects();
+                });
+            });
+
+            function filterProjects() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const activeFilter = document.querySelector('.filter-tag.active').dataset.category;
+
+                projectCards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+
+                    // Get category from class or data attribute (you'll need to add these to your project cards)
+                    const category = card.dataset.category || 'all';
+                    const matchesFilter = activeFilter === 'all' || category === activeFilter;
+
+                    if (matchesSearch && matchesFilter) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            }
+        });
+
+    </script>
+</body>
+
+</html>
